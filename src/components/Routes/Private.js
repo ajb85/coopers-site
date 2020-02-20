@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
+import Manage from '../protected/Manage/';
+
+import { AccountContext } from 'Providers/Account.js';
+
 export default function PrivateRoutes(props) {
+  const { token: tokenState } = useContext(AccountContext);
+  const { token, verified } = tokenState;
   return (
     <>
-      {token ? (
-        <Redirect to="/" />
-      ) : (
+      {token && verified ? (
         <>
-          <Route path="/gallery">
-            <div>Hello World</div>
+          <Route path='/ajb85/manage'>
+            <Manage />
           </Route>
         </>
+      ) : token && !verified ? (
+        <div>Verifying Account...</div>
+      ) : (
+        <Redirect to='/' />
       )}
     </>
   );
