@@ -16,12 +16,19 @@ function useToken() {
   });
 
   const updateToken = () => {
-    if (token) {
+    if (token && !token.verified) {
       // make API call to verify token}
-      setToken({ token: 'asdf', verified: true });
+      // HARD CODED
+      setToken({ token: 'myToken', verified: true });
     }
-
-    // make call to verify token
   };
-  return { token, setToken, updateToken };
+
+  const saveToken = token => {
+    // HARD CODED
+    localStorage.setItem('token', token);
+    setToken({ token, verified: true });
+  };
+
+  updateToken();
+  return { token, saveToken };
 }
