@@ -1,0 +1,6 @@
+@import './variables.scss';
+
+body {
+  max-width: $maxWidth;
+  margin: 0 auto;
+}
