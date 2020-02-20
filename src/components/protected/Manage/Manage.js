@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 import styles from './styles.module.scss';
 
 export default function Manage(prop) {
-  const [images, setImages] = useState({
-    loading: false,
-    files: [],
-    render: []
-  });
+  const [images, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (images.files.length > images.render.length) {
@@ -18,31 +14,24 @@ export default function Manage(prop) {
         reader.onload = e => {
           // Event listener for when the file is read
           // (save to state)
-          setImages({ ...images, render: [...images.render, e.target.result] });
+          dispatch({ type: 'ADD_RENDER', payload: e.target.result });
         };
 
         // Read file
         reader.readAsDataURL(images.files[i]);
       }
     } else if (images.files.length < images.render.length) {
-      setImages({
-        ...images,
-        render: images.render.slice(0, images.files.length)
-      });
+      dispatch({ type: 'REMOVE_IMAGE', payload: images.render.length - 1 });
     }
-  }, [images, setImages]);
+  }, [images, dispatch]);
 
   const selectImages = e => {
-    const { files } = e.target;
-    setImages({ ...images, files: [...images.files, ...files] });
+    const { files: payload } = e.target;
+    dispatch({ type: 'ADD_FILE', payload });
   };
 
   const deletePreview = i => {
-    setImages({
-      ...images,
-      files: images.files.filter((_, index) => index !== i),
-      render: images.render.filter((_, index) => index !== i)
-    });
+    dispatch({ type: 'REMOVE_IMAGE', payload: i });
   };
 
   return (
@@ -52,13 +41,17 @@ export default function Manage(prop) {
         <Input onChange={selectImages} />{' '}
       </label>
       {images.files.length > 0
-        ? images.files.map(f => <span style={{ margin: 10 }}>{f.name}</span>)
+        ? images.files.map((f, i) => (
+            <span key={i} style={{ margin: 10 }}>
+              {f.name}
+            </span>
+          ))
         : ''}
       <div className={styles.imagePreviews}>
         {images.render.map((img, i) => (
           <div key={i} style={{ position: 'relative' }}>
             <p onClick={deletePreview.bind(this, i)}>x</p>
-            <img src={img} />
+            <img src={img} alt='Uploaded Image' />
           </div>
         ))}
       </div>
@@ -76,4 +69,26 @@ function Input(props) {
       onChange={e => props.onChange(e)}
     />
   );
+}
+
+const initialState = {
+  files: [],
+  render: []
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'ADD_FILE':
+      return { ...state, files: [...state.files, ...action.payload] };
+    case 'ADD_RENDER':
+      return { ...state, render: [...state.render, action.payload] };
+    case 'REMOVE_IMAGE':
+      return {
+        ...state,
+        files: state.files.filter((_, index) => index !== action.payload),
+        render: state.render.filter((_, index) => index !== action.payload)
+      };
+    default:
+      return state;
+  }
 }
