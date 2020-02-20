@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 export default function Header(props) {
   return (
-    <div>
+    <div className={styles.Header}>
       <img src={headerIMG} />
     </div>
   );
