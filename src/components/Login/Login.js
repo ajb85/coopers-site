@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import axios from 'axios.js';
 import history from 'history.js';
 
 import { AccountContext } from 'Providers/Account.js';
@@ -16,15 +17,20 @@ function Login(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // HARD CODED
-    saveToken('myToken');
-
-    history.push('/ajb85/manage');
+    if (login.username.length && login.password.length) {
+      axios
+        .post('/login', login)
+        .then(({ data }) => {
+          saveToken(data.token);
+          history.push('/ajb85/manage');
+        })
+        .catch(err => console.log('LOGIN ERROR: ', err));
+    }
   };
 
   return (
     <form className={styles.login} onSubmit={e => handleSubmit(e)}>
-      <Link to='/'>Didn't mean to end up here? Click to go back!</Link>
+      <Link to="/">Didn't mean to end up here? Click to go back!</Link>
       <input
         value={login.username}
         onChange={e => setLogin({ ...login, username: e.target.value })}
@@ -33,7 +39,7 @@ function Login(props) {
         value={login.password}
         onChange={e => setLogin({ ...login, password: e.target.value })}
       />
-      <button type='submit'>Login</button>
+      <button type="submit">Login</button>
     </form>
   );
 }

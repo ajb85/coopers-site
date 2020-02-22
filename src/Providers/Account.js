@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react';
+import axios from 'axios.js';
 
 export const AccountContext = createContext();
 
@@ -10,25 +11,33 @@ export function Account(props) {
 }
 
 function useToken() {
-  const [token, setToken] = useState({
+  const [tokenStatus, setToken] = useState({
     token: localStorage.getItem('token'),
     verified: false
   });
 
+  const [verifyAttempted, setVerifyAttempted] = useState(false);
+
   const updateToken = () => {
-    if (token && !token.verified) {
-      // make API call to verify token}
-      // HARD CODED
-      setToken({ token: 'myToken', verified: true });
+    if (tokenStatus && !tokenStatus.verified && !verifyAttempted) {
+      setVerifyAttempted(true);
+      axios
+        .get('/token/verify')
+        .then(_ => setToken({ ...tokenStatus, verified: true }))
+        .catch(_ => {
+          localStorage.removeItem('token');
+          setToken({ token: null, verified: false });
+        });
     }
   };
 
   const saveToken = token => {
-    // HARD CODED
-    localStorage.setItem('token', token);
-    setToken({ token, verified: true });
+    if (token) {
+      localStorage.setItem('token', token);
+      setToken({ token, verified: true });
+    }
   };
 
   updateToken();
-  return { token, saveToken };
+  return { tokenStatus, saveToken };
 }

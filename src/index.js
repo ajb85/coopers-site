@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import PublicRoutes from './components/Routes/Public.js';
-import PrivateRoutes from './components/Routes/Private.js';
+import Routes from './components/Routes/';
 
 // Context
 import Providers from './Providers/';
@@ -16,8 +15,7 @@ import 'SCSS/index.scss';
 ReactDOM.render(
   <Providers>
     <Router history={history}>
-      <PublicRoutes />
-      <PrivateRoutes />
+      <Routes />
     </Router>
   </Providers>,
   document.getElementById('root')

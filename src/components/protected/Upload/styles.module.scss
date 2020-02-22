@@ -1,0 +1,18 @@
+.uploadButton {
+  border: 1px solid black;
+  padding: 5px;
+
+  &:active {
+    transform: translateY(-1);
+  }
+}
+
+.fileNames {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.imageSubmitContainer {
+  margin-top: 50px;
+}

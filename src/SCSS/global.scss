@@ -3,4 +3,10 @@
 body {
   max-width: $maxWidth;
   margin: 0 auto;
+  padding: 0 0 0 20px;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
 }
