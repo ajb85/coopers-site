@@ -16,22 +16,53 @@ export default class OrderedMap {
   }
 
   get(id) {
-    return this.storage.size ? this.storage.get(id).value : {};
+    const node = this.storage.get(id);
+    if (node) {
+      this.id = id;
+      return node.value;
+    }
+    return {};
   }
 
-  next(id) {
-    return this.storage.size ? this.storage.get(id).next : {};
+  nextID(id) {
+    return this._cycle(id, 'next');
   }
 
-  prev(id) {
-    return this.storage.size ? this.storage.get(id).prev : {};
+  prevID(id) {
+    return this._cycle(id, 'prev');
   }
 
   lastID() {
-    return this.storage.size ? Math.max(...this.keys()) : 0;
+    return this._findEndID('last');
   }
 
   keys() {
     return this.storage.keys();
+  }
+
+  _findEndID(end) {
+    if (!this.length) {
+      return 0;
+    }
+    const method = end === 'first' ? 'min' : 'max';
+    return Math[method](...this.keys());
+  }
+
+  _cycle(id, direction) {
+    if (!this.length) {
+      return {};
+    }
+    const currentNode = this.storage.get(id);
+
+    if (currentNode) {
+      const node = currentNode[direction];
+      const otherEnd = direction === 'prev' ? 'last' : 'first';
+      const newImage = node
+        ? node.value
+        : this.storage.get(this._findEndID(otherEnd)).value;
+      this.id = newImage.id;
+      return newImage.id;
+    }
+    return 0;
   }
 }
