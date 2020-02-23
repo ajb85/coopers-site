@@ -6,22 +6,21 @@ import styles from './styles.module.scss';
 
 function MainImage({ image, showMenuState }) {
   const { nextImage, prevImage } = useContext(ImagesContext);
-
   const [showMenu] = showMenuState;
+  const offset = showMenu
+    ? window.innerWidth * 0.2 <= 300
+      ? 300
+      : window.innerWidth * 0.2
+    : 0;
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
+    width: window.innerWidth - offset,
     height: window.innerHeight
   });
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     const resizeWindow = () => {
-      const offset = showMenu
-        ? window.innerWidth * 0.2 <= 300
-          ? 300
-          : window.innerWidth * 0.2
-        : 0;
       setWindowSize({
         width: Math.round(window.innerWidth - offset),
         height: window.innerHeight
