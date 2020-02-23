@@ -1,8 +1,11 @@
 .MainImage {
   width: 80vw;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   img {
-    width: 80vw;
+    width: 100vw;
   }
 }
