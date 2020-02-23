@@ -7,20 +7,39 @@ export const ImagesContext = createContext();
 
 export function Images(props) {
   const [images, setImages] = useState(new OrderedMap());
+  const [active, setActive] = useState(null);
   const [fetched, setFetched] = useState(false);
-  console.log(images.storage);
 
   useEffect(() => {
-    if (!fetched) {
+    if (!fetched && !images.length) {
       setFetched(true);
       realmBE
         .get('/images/all')
-        .then(({ data }) => setImages(new OrderedMap(data)))
+        .then(({ data }) => {
+          setImages(new OrderedMap(data));
+        })
         .catch(err => console.log('ERROR FETCHING IMAGES: ', err));
+    } else if (fetched && images.length) {
+      setActive(images.lastID());
     }
-  }, [images, setImages, fetched]);
+    // eslint-disable-next-line
+  }, [images, fetched]);
+
+  const nextImage = () => {
+    setActive(images.nextID(active));
+  };
+
+  const prevImage = () => {
+    setActive(images.prevID(active));
+  };
 
   const { Provider } = ImagesContext;
 
-  return <Provider value={{ images, setImages }}>{props.children}</Provider>;
+  const image = images.get(active);
+
+  return (
+    <Provider value={{ images, image, nextImage, prevImage }}>
+      {props.children}
+    </Provider>
+  );
 }
