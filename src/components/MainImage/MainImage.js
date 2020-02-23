@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import { ImagesContext } from 'Providers/Images.js';
 
 import styles from './styles.module.scss';
 
 function MainImage({ image, showMenuState }) {
+  const { nextImage, prevImage } = useContext(ImagesContext);
+
   const [showMenu] = showMenuState;
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [windowSize, setWindowSize] = useState({
@@ -61,6 +65,10 @@ function MainImage({ image, showMenuState }) {
         src={image.src}
         alt={image.alt}
       />
+      <div className={styles.controls}>
+        <p onClick={prevImage}>{'<'}</p>
+        <p onClick={nextImage}>{'>'}</p>
+      </div>
     </div>
   );
 }

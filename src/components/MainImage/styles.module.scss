@@ -5,7 +5,26 @@
   justify-content: center;
   align-items: center;
 
+  position: relative;
+
   img {
     width: 100vw;
+  }
+}
+
+.controls {
+  position: absolute;
+  top: 45%;
+  left: 2%;
+  width: 95%;
+
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+  color: red;
+
+  p {
+    font-size: 50px;
+    cursor: pointer;
   }
 }
