@@ -1,9 +1,8 @@
 @import './variables.scss';
 
 body {
-  max-width: $maxWidth;
   margin: 0 auto;
-  padding: 0 0 0 20px;
+  padding: 0;
   overflow: hidden;
 }
 
