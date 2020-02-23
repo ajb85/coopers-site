@@ -9,24 +9,27 @@ import styles from './styles.module.scss';
 
 function Gallery(props) {
   const { images } = useContext(ImagesContext);
+  const activeImageState = useState(null);
+  const [active] = activeImageState;
+  const showMenuState = useState(true);
 
   useEffect(() => {
-    if (!activeImageState[0]) {
-      const ids = Object.keys(images);
-      if (ids.length) {
-        const lastID = Math.max(...ids);
-        activeImageState[1](lastID);
-      }
+    if (activeImageState[0] === null && images.length) {
+      activeImageState[1](images.lastID());
     }
-  }, [images]);
+  }, [activeImageState]);
 
-  const activeImageState = useState();
+  if (active === null) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className={styles.Gallery}>
-      <MainImage
-        image={activeImageState[0] ? images[activeImageState[0]] : {}}
+      <MainImage image={images.get(active)} showMenuState={showMenuState} />
+      <SideMenu
+        activeImageState={activeImageState}
+        showMenuState={showMenuState}
+        images={images}
       />
-      <SideMenu activeImageState={activeImageState} images={images} />
     </div>
   );
 }
