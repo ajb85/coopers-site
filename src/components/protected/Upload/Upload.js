@@ -26,10 +26,18 @@ export default function Upload(props) {
         reader.onload = e => {
           // Event listener for when the file is read
           // (save to state)
-          dispatch({
-            type: 'ADD_RENDER',
-            payload: { index, render: e.target.result }
-          });
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = () => {
+            dispatch({
+              type: 'ADD_RENDER',
+              payload: {
+                index,
+                render: e.target.result,
+                dimensions: { width: img.width, height: img.height }
+              }
+            });
+          };
         };
 
         // Read file
@@ -63,15 +71,15 @@ export default function Upload(props) {
     }
     // Cancel request if missing data
     if (index !== undefined) {
-      const { description, age } = state.images[index].data;
-      if (!description || age === undefined) {
-        console.log('MISSING DESCRIPTION OR AGE', description, age);
+      const { description, date } = state.images[index].data;
+      if (!description || !date) {
+        console.log('MISSING DESCRIPTION OR AGE', description, date);
         return;
       }
     } else {
       for (let i = 0; i < state.images.length; i++) {
-        const { description, age } = state.images[i].data;
-        if (!description || age === undefined) {
+        const { description, date } = state.images[i].data;
+        if (!description || !date) {
           console.log('MISSING DESCRIPTION OR AGE');
           return;
         }
@@ -95,19 +103,17 @@ export default function Upload(props) {
       await Promise.all(
         signed.map(async ({ signedRequest, url }, i) => {
           const selected = index || i;
-          const { description, age, alt, location } = state.images[
-            selected
-          ].data;
+          const { data } = state.images[selected];
           const image = state.images[selected].file;
-          console.log('URL: ', url);
+
+          if (data.credit === 'None') {
+            delete data.credit;
+          }
 
           await axios.put(signedRequest, image);
           /*const newImage =*/ await axiosBE.post('/images/confirmed', {
             src: url,
-            description,
-            age,
-            alt,
-            location
+            ...data
           });
 
           dispatch({ type: 'REMOVE_IMAGE', payload: selected });
@@ -175,11 +181,23 @@ export default function Upload(props) {
   );
 }
 
+function getDateFromFileName(fileName) {
+  const split = fileName.split('_');
+
+  return split.length === 3 ? split[1] : null;
+}
+
 const initialState = {
   images: []
 };
 
 function reducer(state, action) {
+  const now = new Date();
+  const month = (now.getMonth() + 1).toString();
+  const day = now.getDate().toString();
+  const date = `${now.getFullYear()}-${
+    month.length === 2 ? month : '0' + month
+  }-${day.length === 2 ? day : '0' + day}`;
   switch (action.type) {
     case 'ADD_FILE':
       return {
@@ -189,7 +207,16 @@ function reducer(state, action) {
           {
             file: action.payload,
             render: null,
-            data: { alt: '', description: '', age: 0, location: '' },
+            data: {
+              alt: '',
+              description: '',
+              date,
+              location: '',
+              tags: '',
+              width: 0,
+              height: 0,
+              credit: 'None'
+            },
             pending: false
           }
         ]
@@ -199,7 +226,15 @@ function reducer(state, action) {
         ...state,
         images: state.images.map((img, i) =>
           i === action.payload.index
-            ? { ...img, render: action.payload.render }
+            ? {
+                ...img,
+                render: action.payload.render,
+                data: {
+                  ...img.data,
+                  ...action.payload.dimensions,
+                  date: getDateFromFileName(img.fileName) || img.data.date
+                }
+              }
             : img
         )
       };

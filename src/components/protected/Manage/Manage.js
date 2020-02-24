@@ -6,7 +6,7 @@ import Display from '../Display/';
 import styles from './styles.module.scss';
 
 export default function Manage(prop) {
-  const [tab, setTab] = React.useState('display');
+  const [tab, setTab] = React.useState('upload');
 
   const selection = {
     upload: <Upload />,
