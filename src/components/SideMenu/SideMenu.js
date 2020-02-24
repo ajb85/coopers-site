@@ -1,14 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { ImagesContext } from 'Providers/Images.js';
 import logo from '../../assets/logo.png';
 import styles from './styles.module.scss';
 
-function SideMenu(props) {
+function SideMenu({ showMenuState: [showMenu, setShowMenu] }) {
+  const { images, image, setImage } = useContext(ImagesContext);
+
+  const renderImages = () => {
+    return images.map(img => {
+      const style = {};
+      if (img.height > img.width) {
+        style.height = '100%';
+      } else {
+        style.width = '100%';
+      }
+      return (
+        <div
+          key={img.id}
+          className={styles.imageWindow}
+          style={{ opacity: img.id === image.id ? 0.3 : 1 }}
+          onClick={() => setImage(img.id)}
+        >
+          <img style={style} src={img.src} alt={`Thumbnail.  ${img.alt}`} />
+        </div>
+      );
+    });
+  };
   return (
     <div className={styles.SideMenu}>
+      {/* Logo */}
       <div className={styles.logo}>
         <img src={logo} alt="Cooper Logo" />
       </div>
+
+      {/* Filter Options */}
+
+      {/* Render Image List */}
+      <div className={styles.imagesContainer}>{renderImages()}</div>
     </div>
   );
 }
