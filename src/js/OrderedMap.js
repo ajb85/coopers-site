@@ -40,6 +40,18 @@ export default class OrderedMap {
     return this.storage.keys();
   }
 
+  map(cb) {
+    const data = [];
+    let i = 0;
+    const arr = [...this.storage.values()].map(({ value }) => value);
+    this.storage.forEach(v => {
+      data.push(cb(v.value, i, arr));
+      i++;
+    });
+
+    return data;
+  }
+
   _findEndID(end) {
     if (!this.length) {
       return 0;
@@ -53,13 +65,14 @@ export default class OrderedMap {
       return {};
     }
     const currentNode = this.storage.get(id);
-
     if (currentNode) {
       const node = currentNode[direction];
-      const otherEnd = direction === 'prev' ? 'last' : 'first';
+
+      const otherEnd = direction === 'prev' ? 'first' : 'last';
       const newImage = node
         ? node.value
         : this.storage.get(this._findEndID(otherEnd)).value;
+
       this.id = newImage.id;
       return newImage.id;
     }
