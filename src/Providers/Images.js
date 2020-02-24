@@ -33,12 +33,16 @@ export function Images(props) {
     setActive(images.prevID(active));
   };
 
+  const setImage = id => {
+    setActive(id);
+  };
+
   const { Provider } = ImagesContext;
 
   const image = images.get(active);
 
   return (
-    <Provider value={{ images, image, nextImage, prevImage }}>
+    <Provider value={{ images, image, nextImage, prevImage, setImage }}>
       {props.children}
     </Provider>
   );
