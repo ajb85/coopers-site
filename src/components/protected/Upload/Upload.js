@@ -184,7 +184,20 @@ export default function Upload(props) {
 function getDateFromFileName(fileName) {
   const split = fileName.split('_');
 
-  return split.length === 3 ? split[1] : null;
+  if (split.length === 3) {
+    const date = split[1];
+
+    if (date.length === 8) {
+      // 20200202
+      return (
+        date.substring(0, 4) +
+        '-' +
+        date.substring(4, 6) +
+        '-' +
+        date.substring(6)
+      );
+    }
+  }
 }
 
 const initialState = {
@@ -232,7 +245,7 @@ function reducer(state, action) {
                 data: {
                   ...img.data,
                   ...action.payload.dimensions,
-                  date: getDateFromFileName(img.fileName) || img.data.date
+                  date: getDateFromFileName(img.file.name) || img.data.date
                 }
               }
             : img
