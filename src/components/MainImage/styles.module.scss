@@ -1,17 +1,3 @@
-.MainImage {
-  width: 80vw;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: relative;
-
-  img {
-    width: 100vw;
-  }
-}
-
 .controls {
   position: absolute;
   top: 45%;
@@ -21,10 +7,22 @@
   display: flex;
   justify-content: space-between;
   z-index: 1000;
-  color: red;
+  color: white;
 
   p {
     font-size: 50px;
     cursor: pointer;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   }
+}
+
+.captions {
+  position: absolute;
+  bottom: 15px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+
+  background-color: rgba(255, 255, 255, 0.5);
 }
