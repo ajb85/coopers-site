@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import ImagesForm from '../ImagesForm/';
+import axiosBE from 'axios.js';
 
 import formStyles from '../Upload/styles.module.scss';
-
-import axiosBE from 'axios.js';
 
 function Display(props) {
   const [images, setImages] = useState([]);
@@ -34,7 +33,10 @@ function Display(props) {
       e.preventDefault();
     }
 
-    const { id, ...image } = images[index];
+    const { id, credit_name, credit, credit_link, ...image } = images[index];
+
+    image.credit_id = credit === 'None' ? null : credit;
+
     axiosBE
       .put(`/images/edit/${id}`, image)
       .then(_ => _)
@@ -53,10 +55,29 @@ function Display(props) {
       <ImagesForm
         styles={formStyles}
         renderList={images.map(d => {
-          const { description, alt, age, location, ...img } = d;
+          const {
+            description,
+            alt,
+            date,
+            location,
+            width,
+            height,
+            credit,
+            tags,
+            ...img
+          } = d;
           return {
             ...img,
-            data: { description, alt, age, location },
+            data: {
+              description,
+              alt,
+              date,
+              location,
+              height,
+              width,
+              tags,
+              credit: credit || 'None'
+            },
             pending: false
           };
         })}
