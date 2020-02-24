@@ -18,7 +18,7 @@ function Gallery(props) {
   return (
     <div className={styles.Gallery}>
       <MainImage image={image} showMenuState={showMenuState} />
-      <SideMenu active={image.id} showMenuState={showMenuState} />
+      <SideMenu showMenuState={showMenuState} />
     </div>
   );
 }
