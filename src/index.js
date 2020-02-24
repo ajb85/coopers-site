@@ -10,7 +10,7 @@ import Providers from './Providers/';
 import { Router } from 'react-router-dom';
 import history from './history.js';
 
-import 'SCSS/index.scss';
+import 'styles/index.scss';
 
 ReactDOM.render(
   <Providers>
