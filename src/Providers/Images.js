@@ -24,9 +24,7 @@ export function Images(props) {
     }
     // eslint-disable-next-line
   }, [images, fetched]);
-  console.log('ACTIVE IN<: ', active);
   function nextImage() {
-    console.log('ACTIVE IN FUNC: ', active);
     setActive(images.nextID(active));
   }
 
