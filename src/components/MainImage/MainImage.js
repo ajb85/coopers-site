@@ -43,6 +43,7 @@ function MainImage({ showMenuState: [showMenu], windowSize }) {
         interval = null;
       }, 1000);
     }, 500);
+    // eslint-disable-next-line
   }, [image]);
 
   if (!image) {
