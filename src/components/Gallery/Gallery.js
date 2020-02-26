@@ -16,11 +16,7 @@ function Gallery(props) {
     height: window.innerHeight
   });
 
-  useEffect(() => {
-    setWindowSize(getWindowSize(showMenu));
-  }, [showMenu]);
-
-  useEffect(() => {
+  useEffect(function() {
     const resizeWindow = () => {
       setWindowSize(getWindowSize(showMenu));
     };
