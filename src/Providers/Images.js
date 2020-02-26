@@ -24,25 +24,26 @@ export function Images(props) {
     }
     // eslint-disable-next-line
   }, [images, fetched]);
-
-  const nextImage = () => {
+  console.log('ACTIVE IN<: ', active);
+  function nextImage() {
+    console.log('ACTIVE IN FUNC: ', active);
     setActive(images.nextID(active));
-  };
+  }
 
-  const prevImage = () => {
+  function prevImage() {
     setActive(images.prevID(active));
-  };
+  }
 
-  const setImage = id => {
+  function setImage(id) {
     setActive(id);
-  };
+  }
 
   const { Provider } = ImagesContext;
 
   const image = images.get(active);
 
   return (
-    <Provider value={{ images, image, nextImage, prevImage, setImage }}>
+    <Provider value={{ images, image, nextImage, prevImage, setImage, active }}>
       {props.children}
     </Provider>
   );
