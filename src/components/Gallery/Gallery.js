@@ -8,13 +8,34 @@ import { ImagesContext } from 'Providers/Images.js';
 import styles from './styles.module.scss';
 
 function Gallery(props) {
-  const { image } = useContext(ImagesContext);
+  const { image, nextImage, prevImage, active } = useContext(ImagesContext);
   const showMenuState = useState(false);
   const [showMenu] = showMenuState;
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth - getWindowSize(showMenu).offset,
     height: window.innerHeight
   });
+
+  useEffect(() => {
+    setWindowSize(getWindowSize(showMenu));
+  }, [showMenu]);
+
+  useEffect(() => {
+    const removeListener = () =>
+      window.removeEventListener('keydown', keyPress);
+    function keyPress({ code }) {
+      if (code === 'ArrowLeft') {
+        prevImage();
+      } else if (code === 'ArrowRight') {
+        nextImage();
+      }
+    }
+
+    removeListener();
+    window.addEventListener('keydown', keyPress);
+
+    return removeListener;
+  }, [nextImage, prevImage, active]);
 
   useEffect(function() {
     const resizeWindow = () => {

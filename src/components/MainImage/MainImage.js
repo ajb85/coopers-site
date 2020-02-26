@@ -6,6 +6,8 @@ import getAge from 'js/getAge.js';
 import Fade from 'styles/components/Fade/';
 import styles from './styles.module.scss';
 
+let interval;
+
 function MainImage({ showMenuState: [showMenu], windowSize }) {
   const { nextImage, image, prevImage } = useContext(ImagesContext);
   const [transition, setTransition] = useState(false);
@@ -27,14 +29,20 @@ function MainImage({ showMenuState: [showMenu], windowSize }) {
   }, [windowSize, renderedImage, showMenu]);
 
   useEffect(() => {
-    setTransition(true);
-    setTimeout(() => {
+    if (!transition) {
+      setTransition(true);
+    }
+    if (interval) {
+      clearInterval(interval);
+    }
+    interval = setTimeout(() => {
       setTransition(false);
       setRenderedImage(image);
+      interval = setTimeout(() => {
+        setTransition(null);
+        interval = null;
+      }, 1000);
     }, 500);
-    setTimeout(() => {
-      setTransition(null);
-    }, 1500);
   }, [image]);
 
   if (!image) {
