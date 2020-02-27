@@ -37,16 +37,23 @@ function Gallery(props) {
     return removeListener;
   }, [nextImage, prevImage, active]);
 
-  useEffect(function() {
-    const resizeWindow = () => {
-      setWindowSize(getWindowSize(showMenu));
-    };
+  useEffect(
+    function() {
+      const resizeWindow = () => {
+        setWindowSize(getWindowSize(showMenu));
+      };
 
-    window.addEventListener('resize', resizeWindow);
+      const removeListener = () =>
+        window.removeEventListener('resize', resizeWindow);
 
-    return () => window.removeEventListener('resize', resizeWindow);
-    // eslint-disable-next-line
-  }, []);
+      removeListener();
+      window.addEventListener('resize', resizeWindow);
+
+      return removeListener;
+      // eslint-disable-next-line
+    },
+    [showMenu]
+  );
 
   if (!image) {
     return <div>Loading...</div>;

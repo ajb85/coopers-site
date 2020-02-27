@@ -16,15 +16,17 @@ export default function Routes(props) {
         <Gallery />
       </Route>
       <Route exact path='/ajb85/login'>
-        <Login />
+        <Account>
+          <Login />
+        </Account>
       </Route>
 
       {/* Private Routes */}
-      <Account>
-        <Route exact path='/ajb85/manage'>
+      <Route exact path='/ajb85/manage'>
+        <Account>
           <Manage />
-        </Route>
-      </Account>
+        </Account>
+      </Route>
 
       {/* Default Route */}
       <Route>
