@@ -1,0 +1,13 @@
+.Filter {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  margin-bottom: 15px;
+  padding: 15px;
+  transition: height 0.5s;
+}
+
+.arrows {
+  transition: transform 0.5s;
+}

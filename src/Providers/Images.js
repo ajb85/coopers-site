@@ -15,9 +15,7 @@ export function Images(props) {
       setFetched(true);
       realmBE
         .get('/images/all')
-        .then(({ data }) => {
-          setImages(new OrderedMap(data));
-        })
+        .then(({ data }) => setImages(new OrderedMap(data)))
         .catch(err => console.log('ERROR FETCHING IMAGES: ', err));
     } else if (fetched && images.length) {
       setActive(images.lastID());

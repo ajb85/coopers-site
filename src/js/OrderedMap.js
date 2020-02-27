@@ -1,16 +1,17 @@
 export default class OrderedMap {
   constructor(images = []) {
-    this.storage = images.reduce((acc, img, i, arr) => {
-      const prevID = i === 0 ? null : arr[i - 1].id;
-      const prev = prevID ? acc.get(prevID) : null;
-
-      const node = { value: img, prev };
-      if (prev) {
-        prev.next = node;
-      }
-      acc.set(img.id, node);
-      return acc;
-    }, new Map());
+    this.storage = images
+      .sort((a, b) => (a.date > b.date ? -1 : a.date < b.date ? 1 : 0))
+      .reduce((acc, img, i, arr) => {
+        const prevID = i === 0 ? null : arr[i - 1].id;
+        const prev = prevID ? acc.get(prevID) : null;
+        const node = { value: img, prev };
+        if (prev) {
+          prev.next = node;
+        }
+        acc.set(img.id, node);
+        return acc;
+      }, new Map());
 
     this.length = this.storage.size;
   }

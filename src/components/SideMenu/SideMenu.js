@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
+
+import Filter from '../Filter/';
 
 import { ImagesContext } from 'Providers/Images.js';
 import logo from '../../assets/logo.png';
@@ -6,6 +8,7 @@ import styles from './styles.module.scss';
 
 function SideMenu({ showMenuState: [showMenu, setShowMenu] }) {
   const { images, image, setImage } = useContext(ImagesContext);
+  const [showFilter, setShowFilter] = useState(true);
 
   const renderImages = () => {
     return images.map(img => {
@@ -35,7 +38,7 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu] }) {
       </div>
 
       {/* Filter Options */}
-
+      <Filter showFilter={showFilter} setShowFilter={setShowFilter} />
       {/* Render Image List */}
       <div className={styles.imagesContainer}>{renderImages()}</div>
     </div>
