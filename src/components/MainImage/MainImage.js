@@ -6,35 +6,14 @@ import getAge from 'js/getAge.js';
 import Fade from 'styles/components/Fade/';
 import styles from './styles.module.scss';
 
-function MainImage({ showMenuState }) {
+let interval;
+
+function MainImage({ showMenuState: [showMenu], windowSize }) {
   const { nextImage, image, prevImage } = useContext(ImagesContext);
   const [transition, setTransition] = useState(false);
   const [renderedImage, setRenderedImage] = useState(image);
-  const [showMenu] = showMenuState;
-  const offset = showMenu
-    ? window.innerWidth * 0.2 <= 300
-      ? 300
-      : window.innerWidth * 0.2
-    : 0;
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth - offset,
-    height: window.innerHeight
-  });
+
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const resizeWindow = () => {
-      setWindowSize({
-        width: Math.round(window.innerWidth - offset),
-        height: window.innerHeight
-      });
-    };
-
-    window.addEventListener('resize', resizeWindow);
-
-    return () => window.removeEventListener('resize', resizeWindow);
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     if (renderedImage.width && renderedImage.height) {
@@ -47,17 +26,24 @@ function MainImage({ showMenuState }) {
           : { width: windowSize.width, height: proposedHeight }
       );
     }
-  }, [windowSize, renderedImage]);
+  }, [windowSize, renderedImage, showMenu]);
 
   useEffect(() => {
-    setTransition(true);
-    setTimeout(() => {
+    if (!transition) {
+      setTransition(true);
+    }
+    if (interval) {
+      clearInterval(interval);
+    }
+    interval = setTimeout(() => {
       setTransition(false);
       setRenderedImage(image);
+      interval = setTimeout(() => {
+        setTransition(null);
+        interval = null;
+      }, 1000);
     }, 500);
-    setTimeout(() => {
-      setTransition(null);
-    }, 1500);
+    // eslint-disable-next-line
   }, [image]);
 
   if (!image) {
@@ -65,7 +51,10 @@ function MainImage({ showMenuState }) {
   }
 
   return (
-    <Fade direction={transition ? 'out' : transition === false ? 'in' : 'done'}>
+    <Fade
+      style={{ width: windowSize.width }}
+      direction={transition ? 'out' : transition === false ? 'in' : 'done'}
+    >
       <img
         style={imageSize.width && imageSize.height ? imageSize : null}
         src={renderedImage.src}

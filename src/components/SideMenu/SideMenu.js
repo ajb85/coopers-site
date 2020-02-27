@@ -6,7 +6,7 @@ import { ImagesContext } from 'Providers/Images.js';
 import logo from '../../assets/logo.png';
 import styles from './styles.module.scss';
 
-function SideMenu({ showMenuState: [showMenu, setShowMenu] }) {
+function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
   const { images, image, setImage } = useContext(ImagesContext);
   const [showFilter, setShowFilter] = useState(true);
 
@@ -30,11 +30,28 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu] }) {
       );
     });
   };
+
   return (
-    <div className={styles.SideMenu}>
+    <div
+      className={styles.SideMenu}
+      style={{
+        right: showMenu
+          ? 0
+          : windowSize.width * 0.2 <= 300
+          ? -300
+          : -windowSize.width * 0.2
+      }}
+    >
+      {/* Menu Options */}
+      <div
+        className={styles.menuControls}
+        onClick={() => setShowMenu(!showMenu)}
+      >
+        <p>{showMenu ? '>' : '<'}</p>
+      </div>
       {/* Logo */}
       <div className={styles.logo}>
-        <img src={logo} alt="Cooper Logo" />
+        <img src={logo} alt='Cooper Logo' />
       </div>
 
       {/* Filter Options */}

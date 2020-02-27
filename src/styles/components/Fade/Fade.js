@@ -36,16 +36,21 @@ const emerge = keyframes`
 `;
 
 export default styled.div`
-  width: 80vw;
   overflow: hidden;
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  transition: width 0.5s;
+
   position: relative;
 
   img {
+    transition: width 0.5s, height 0.5s;
+
     opacity: ${({ direction }) => {
       return direction === 'in' ? 0 : 1;
     }};

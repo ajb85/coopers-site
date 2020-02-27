@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Upload from '../Upload/';
 import Display from '../Display/';
 
+import { AccountContext } from 'Providers/Account.js';
+
 import styles from './styles.module.scss';
 
 export default function Manage(prop) {
-  const [tab, setTab] = React.useState('upload');
+  const { tokenStatus } = useContext(AccountContext);
+  const { token, verified } = tokenStatus;
+  const [tab, setTab] = useState('upload');
 
   const selection = {
     upload: <Upload />,
     display: <Display />
   };
+
+  if (token && !verified) {
+    return <div>Verifying token...</div>;
+  } else if (!token) {
+    return <Redirect to='/' />;
+  }
+
   return (
     <div className={styles.Manage}>
       <nav>
