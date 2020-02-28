@@ -82,13 +82,13 @@ export default styled.div`
         direction === 'in' ? '0.5s' : direction === 'out' ? '0s' : null}
       1;
 
-    background: rgb(255, 255, 255);
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.5) 75%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: rgb(255, 255, 255, 0.5);
+    // background: linear-gradient(
+    //   0deg,
+    //   rgba(255, 255, 255, 1) 0%,
+    //   rgba(255, 255, 255, 0.5) 75%,
+    //   rgba(255, 255, 255, 0) 100%
+    // );
 
     &::before {
       position: absolute;
@@ -102,11 +102,12 @@ export default styled.div`
       transition: opacity 0.5s linear;
       opacity: 0;
 
-      background: linear-gradient(
-        0deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 1) 100%
-      );
+      // background: linear-gradient(
+      //   0deg,
+      //   rgba(255, 255, 255, 1) 0%,
+      //   rgba(255, 255, 255, 1) 100%
+      // );
+      background: rgba(255, 255, 255, 1);
     }
 
     &:hover::before {
