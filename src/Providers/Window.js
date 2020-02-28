@@ -46,6 +46,7 @@ function getWindowSize(showMenu) {
     : 0;
   return {
     width: Math.round(window.innerWidth - offset),
+    rawWidth: window.innerWidth,
     height: window.innerHeight,
     offset
   };
