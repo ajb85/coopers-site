@@ -1,4 +1,5 @@
 import React, { /*useState,*/ useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // import Filter from '../Filter/';
 
@@ -42,15 +43,24 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
       }}
     >
       {/* Menu Options */}
-      <div
-        className={styles.menuControls}
-        onClick={() => setShowMenu(!showMenu)}
-      >
-        <p>{showMenu ? '>' : '<'}</p>
+      <div className={styles.menuOpen} onClick={() => setShowMenu(true)}>
+        <div />
+        <FontAwesomeIcon
+          style={{
+            left: showMenu ? 5 : -35,
+            transition: showMenu ? 'left 0.25s' : 'left 0.1s',
+            transitionDelay: showMenu ? '0.1s' : '0.5s'
+          }}
+          icon={['fal', 'bars']}
+        />
+      </div>
+
+      <div className={styles.menuClose} onClick={() => setShowMenu(false)}>
+        <FontAwesomeIcon icon={['fal', 'times']} />
       </div>
       {/* Logo */}
       <div className={styles.logo}>
-        <img src={logo} alt="Cooper Logo" />
+        <img src={logo} alt='Cooper Logo' />
       </div>
 
       {/* Filter Options */}
