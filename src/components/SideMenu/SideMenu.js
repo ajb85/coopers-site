@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { /*useState,*/ useContext } from 'react';
 
-import Filter from '../Filter/';
+// import Filter from '../Filter/';
 
 import { ImagesContext } from 'Providers/Images.js';
 import logo from '../../assets/logo.png';
@@ -8,8 +8,7 @@ import styles from './styles.module.scss';
 
 function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
   const { images, image, setImage } = useContext(ImagesContext);
-  const [showFilter, setShowFilter] = useState(true);
-
+  // const [showFilter, setShowFilter] = useState(true);
   const renderImages = () => {
     return images.map(img => {
       const style = {};
@@ -51,11 +50,11 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
       </div>
       {/* Logo */}
       <div className={styles.logo}>
-        <img src={logo} alt='Cooper Logo' />
+        <img src={logo} alt="Cooper Logo" />
       </div>
 
       {/* Filter Options */}
-      <Filter showFilter={showFilter} setShowFilter={setShowFilter} />
+      {/* <Filter showFilter={showFilter} setShowFilter={setShowFilter} /> */}
       {/* Render Image List */}
       <div className={styles.imagesContainer}>{renderImages()}</div>
     </div>

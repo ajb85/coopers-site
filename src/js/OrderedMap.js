@@ -57,8 +57,8 @@ export default class OrderedMap {
     if (!this.length) {
       return 0;
     }
-    const method = end === 'first' ? 'min' : 'max';
-    return Math[method](...this.keys());
+    const keys = [...this.keys()];
+    return end === 'first' ? keys[keys.length - 1] : keys[0];
   }
 
   _cycle(id, direction) {

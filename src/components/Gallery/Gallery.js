@@ -1,24 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import MainImage from '../MainImage/';
 import SideMenu from '../SideMenu/';
 
 import { ImagesContext } from 'Providers/Images.js';
+import { WindowSizeContext } from 'Providers/Window.js';
 
 import styles from './styles.module.scss';
 
 function Gallery(props) {
   const { image, nextImage, prevImage, active } = useContext(ImagesContext);
-  const showMenuState = useState(false);
-  const [showMenu] = showMenuState;
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth - getWindowSize(showMenu).offset,
-    height: window.innerHeight
-  });
-
-  useEffect(() => {
-    setWindowSize(getWindowSize(showMenu));
-  }, [showMenu]);
+  const { windowSize, showMenu, setShowMenu } = useContext(WindowSizeContext);
+  const showMenuState = [showMenu, setShowMenu];
 
   useEffect(() => {
     const removeListener = () =>
@@ -37,24 +30,6 @@ function Gallery(props) {
     return removeListener;
   }, [nextImage, prevImage, active]);
 
-  useEffect(
-    function() {
-      const resizeWindow = () => {
-        setWindowSize(getWindowSize(showMenu));
-      };
-
-      const removeListener = () =>
-        window.removeEventListener('resize', resizeWindow);
-
-      removeListener();
-      window.addEventListener('resize', resizeWindow);
-
-      return removeListener;
-      // eslint-disable-next-line
-    },
-    [showMenu]
-  );
-
   if (!image) {
     return <div>Loading...</div>;
   }
@@ -72,16 +47,3 @@ function Gallery(props) {
 }
 
 export default Gallery;
-
-function getWindowSize(showMenu) {
-  const offset = showMenu
-    ? window.innerWidth * 0.2 <= 300
-      ? 300
-      : window.innerWidth * 0.2
-    : 0;
-  return {
-    width: Math.round(window.innerWidth - offset),
-    height: window.innerHeight,
-    offset
-  };
-}
