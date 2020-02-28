@@ -66,9 +66,10 @@ export default styled.div`
     position: absolute;
     bottom: 0px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 10px 20px;
     width: 100%;
     z-index: 1;
+    height: 100px;
 
     opacity: ${({ direction }) => {
       return direction === 'in' ? 0 : 1;
@@ -81,11 +82,11 @@ export default styled.div`
         direction === 'in' ? '0.5s' : direction === 'out' ? '0s' : null}
       1;
 
-    background: rgb(255, 255, 255, 1);
+    background: rgb(255, 255, 255);
     background: linear-gradient(
       0deg,
-      rgba(255, 255, 255, 0.75) 0%,
-      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.5) 75%,
       rgba(255, 255, 255, 0) 100%
     );
 
@@ -116,6 +117,7 @@ export default styled.div`
       margin: 10px 0;
 
       &:first-child {
+        transition: margin 0.5s;
         font-size: 18px;
       }
 
