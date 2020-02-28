@@ -9,10 +9,18 @@
   z-index: 1000;
   color: white;
 
-  p {
+  p,
+  svg {
     font-size: 50px;
     cursor: pointer;
-    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+
+    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.5));
+
+    transition: filter 0.5s;
+
+    &:hover {
+      filter: drop-shadow(0px 0px 10px black);
+    }
   }
 }
 

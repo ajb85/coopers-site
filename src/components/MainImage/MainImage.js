@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ImagesContext } from 'Providers/Images.js';
 import getAge from 'js/getAge.js';
@@ -61,8 +62,11 @@ function MainImage({ showMenuState: [showMenu], windowSize }) {
         alt={renderedImage.alt}
       />
       <div className={styles.controls}>
-        <p onClick={prevImage}>{'<'}</p>
-        <p onClick={nextImage}>{'>'}</p>
+        <FontAwesomeIcon icon={['fal', 'arrow-alt-left']} onClick={prevImage} />
+        <FontAwesomeIcon
+          icon={['fal', 'arrow-alt-right']}
+          onClick={nextImage}
+        />
       </div>
 
       <div>
