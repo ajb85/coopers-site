@@ -10,6 +10,7 @@ import Providers from './Providers/';
 import { Router } from 'react-router-dom';
 import history from './history.js';
 
+import 'faLibrary.js';
 import 'styles/index.scss';
 
 ReactDOM.render(
