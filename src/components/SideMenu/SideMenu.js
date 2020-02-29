@@ -10,6 +10,14 @@ import styles from './styles.module.scss';
 function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
   const { images, image, setImage } = useContext(ImagesContext);
   // const [showFilter, setShowFilter] = useState(true);
+  const isMobile = windowSize.rawWidth <= 600;
+
+  const handleImageClick = id => {
+    if (isMobile) {
+      setShowMenu(false);
+    }
+    setImage(id);
+  };
   const renderImages = () => {
     return images.map(img => {
       const style = {};
@@ -23,7 +31,7 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
           key={img.id}
           className={styles.imageWindow}
           style={{ opacity: img.id === image.id ? 0.3 : 1 }}
-          onClick={() => setImage(img.id)}
+          onClick={handleImageClick.bind(this, img.id)}
         >
           <img style={style} src={img.src} alt={`Thumbnail.  ${img.alt}`} />
         </div>
@@ -35,7 +43,11 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
     <div
       className={styles.SideMenu}
       style={{
-        right: showMenu
+        right: isMobile
+          ? showMenu
+            ? 0
+            : -windowSize.rawWidth
+          : showMenu
           ? 0
           : windowSize.width * 0.2 <= 300
           ? -300
