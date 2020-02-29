@@ -39,8 +39,8 @@ export function Window(props) {
 }
 
 function getWindowSize(showMenu) {
-  const isTablet = window.innerWidth < 1000; //&& window.innerWidth >= 600;
-  // const isMobile = window.innerWidth < 600;
+  const isTablet = window.innerWidth < 1000 && window.innerWidth >= 600;
+  const isMobile = window.innerWidth < 600;
   const offset = showMenu
     ? window.innerWidth * 0.2 <= 300
       ? 300
@@ -55,6 +55,8 @@ function getWindowSize(showMenu) {
     width,
     height: window.innerHeight,
     rawWidth: window.innerWidth,
-    offset
+    offset,
+    isTablet,
+    isMobile
   };
 }

@@ -10,10 +10,9 @@ import styles from './styles.module.scss';
 function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
   const { images, image, setImage } = useContext(ImagesContext);
   // const [showFilter, setShowFilter] = useState(true);
-  const isMobile = windowSize.rawWidth <= 600;
 
   const handleImageClick = id => {
-    if (isMobile) {
+    if (windowSize.isTablet || windowSize.isMobile) {
       setShowMenu(false);
     }
     setImage(id);
@@ -43,7 +42,7 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
     <div
       className={styles.SideMenu}
       style={{
-        right: isMobile
+        right: windowSize.isMobile
           ? showMenu
             ? 0
             : -windowSize.rawWidth
