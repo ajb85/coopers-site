@@ -2,7 +2,7 @@
 
 .SideMenu {
   padding-top: 25px;
-  width: 20vw;
+  width: 20%;
   min-width: 300px;
   height: 100%;
   background-color: rgba(255, 255, 255, 1);
@@ -18,7 +18,7 @@
   @media #{$mobile} {
     max-width: none;
 
-    width: 100vw;
+    width: 100%;
   }
 }
 
