@@ -1,9 +1,11 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useRef } from 'react';
 
-export const WindowSizeContext = createContext();
+export const WindowContext = createContext();
 
+let interval;
 export function Window(props) {
   const lastMenuSetting = localStorage.getItem('showMenu');
+  const menuRef = useRef(null);
   const [showMenu, setShowMenu] = useState(
     lastMenuSetting === 'true' || lastMenuSetting === undefined ? true : false
   );
@@ -28,13 +30,33 @@ export function Window(props) {
   }, [showMenu]);
 
   const updateShowMenu = value => {
+    if (interval) {
+      clearInterval(interval);
+    }
+    if (menuRef.current) {
+      if (value) {
+        menuRef.current.style.display = 'initial';
+      } else {
+        interval = setTimeout(() => {
+          menuRef.current.style.display = 'none';
+          interval = null;
+        }, 525);
+      }
+    }
     setShowMenu(value);
     localStorage.setItem('showMenu', value);
   };
 
-  const { Provider } = WindowSizeContext;
+  const { Provider } = WindowContext;
   return (
-    <Provider value={{ windowSize, showMenu, setShowMenu: updateShowMenu }}>
+    <Provider
+      value={{
+        windowSize,
+        showMenu,
+        setShowMenu: updateShowMenu,
+        ref: menuRef
+      }}
+    >
       {props.children}
     </Provider>
   );

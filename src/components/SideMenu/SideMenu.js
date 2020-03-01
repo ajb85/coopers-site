@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import Filter from '../Filter/';
 
 import { ImagesContext } from 'Providers/Images.js';
+import { WindowContext } from 'Providers/Window.js';
+
 import logo from '../../assets/logo.png';
 import styles from './styles.module.scss';
 
-function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
+function SideMenu(props) {
   const { images, image, setImage } = useContext(ImagesContext);
+  const { ref, showMenu, setShowMenu, windowSize } = useContext(WindowContext);
   // const [showFilter, setShowFilter] = useState(true);
 
   const handleImageClick = id => {
@@ -40,6 +43,7 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
 
   return (
     <div
+      ref={ref}
       className={styles.SideMenu}
       style={{
         right: windowSize.isMobile
@@ -50,7 +54,8 @@ function SideMenu({ showMenuState: [showMenu, setShowMenu], windowSize }) {
           ? 0
           : windowSize.width * 0.2 <= 300
           ? -300
-          : -windowSize.width * 0.2
+          : -windowSize.width * 0.2,
+        display: showMenu && 'initial'
       }}
     >
       <div className={styles.menuClose} onClick={() => setShowMenu(false)}>

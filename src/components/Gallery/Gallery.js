@@ -4,14 +4,13 @@ import MainImage from '../MainImage/';
 import SideMenu from '../SideMenu/';
 
 import { ImagesContext } from 'Providers/Images.js';
-import { WindowSizeContext } from 'Providers/Window.js';
+import { WindowContext } from 'Providers/Window.js';
 
 import styles from './styles.module.scss';
 
 function Gallery(props) {
   const { image, nextImage, prevImage, active } = useContext(ImagesContext);
-  const { windowSize, showMenu, setShowMenu } = useContext(WindowSizeContext);
-  const showMenuState = [showMenu, setShowMenu];
+  const { windowSize, showMenu, setShowMenu } = useContext(WindowContext);
 
   useEffect(() => {
     const removeListener = () =>
@@ -42,7 +41,7 @@ function Gallery(props) {
         showMenu={showMenu}
         setShowMenu={setShowMenu}
       />
-      <SideMenu windowSize={windowSize} showMenuState={showMenuState} />
+      <SideMenu />
     </div>
   );
 }
