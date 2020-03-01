@@ -12,6 +12,12 @@ export function Window(props) {
   const [windowSize, setWindowSize] = useState(getWindowSize(showMenu));
 
   useEffect(() => {
+    if (lastMenuSetting === 'false' && windowSize.isMobile && menuRef.current) {
+      menuRef.current.style.display = 'none';
+    }
+  }, []);
+
+  useEffect(() => {
     const resizeWindow = () => {
       setWindowSize(getWindowSize(showMenu));
       document.body.style.height = window.innerHeight - 30 + 'px';

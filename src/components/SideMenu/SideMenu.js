@@ -55,7 +55,8 @@ function SideMenu(props) {
           : windowSize.width * 0.2 <= 300
           ? -300
           : -windowSize.width * 0.2,
-        display: showMenu && 'initial'
+        display: showMenu && 'initial',
+        margin: showMenu && windowSize.isMobile && '0 auto'
       }}
     >
       <div className={styles.menuClose} onClick={() => setShowMenu(false)}>
