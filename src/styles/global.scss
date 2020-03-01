@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+html {
+  overflow: hidden;
+}
+
 body {
   margin: 0 auto;
   padding: 0;
