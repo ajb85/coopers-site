@@ -49,9 +49,10 @@ function getWindowSize(showMenu) {
       : window.innerWidth * 0.2
     : 0;
 
-  const width = isTablet
-    ? window.innerWidth
-    : Math.round(window.innerWidth - offset);
+  const width =
+    isTablet || isMobile
+      ? window.innerWidth
+      : Math.round(window.innerWidth - offset);
 
   return {
     width,
