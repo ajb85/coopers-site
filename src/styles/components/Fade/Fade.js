@@ -38,6 +38,7 @@ const emerge = keyframes`
 export default styled.div`
   overflow: hidden;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   display: flex;
   flex-direction: column;
