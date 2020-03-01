@@ -39,7 +39,8 @@ function Gallery(props) {
       <MainImage
         windowSize={windowSize}
         image={image}
-        showMenuState={showMenuState}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
       />
       <SideMenu windowSize={windowSize} showMenuState={showMenuState} />
     </div>

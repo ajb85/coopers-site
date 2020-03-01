@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 let interval;
 
-function MainImage({ showMenuState: [showMenu], windowSize }) {
+function MainImage({ showMenu, setShowMenu, windowSize }) {
   const { nextImage, image, prevImage } = useContext(ImagesContext);
   const [transition, setTransition] = useState(false);
   const [renderedImage, setRenderedImage] = useState(image);
@@ -56,6 +56,11 @@ function MainImage({ showMenuState: [showMenu], windowSize }) {
       style={{ width: windowSize.width }}
       direction={transition ? 'out' : transition === false ? 'in' : 'done'}
     >
+      <FontAwesomeIcon
+        className={styles.menuOpen}
+        onClick={() => setShowMenu(true)}
+        icon={['fal', 'bars']}
+      />
       <img
         style={imageSize.width && imageSize.height ? imageSize : null}
         src={renderedImage.src}

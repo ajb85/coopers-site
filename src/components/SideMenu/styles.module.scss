@@ -77,26 +77,6 @@
   }
 }
 
-.menuOpen {
-  position: absolute;
-  top: 10px;
-  cursor: pointer;
-
-  div {
-    position: absolute;
-    z-index: 1;
-
-    width: 27px;
-    height: 25px;
-    background-color: white;
-  }
-  svg {
-    position: absolute;
-    z-index: -1;
-    font-size: 25px;
-  }
-}
-
 .menuClose {
   position: absolute;
   top: 5px;
