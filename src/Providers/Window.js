@@ -14,8 +14,8 @@ export function Window(props) {
   useEffect(() => {
     const resizeWindow = () => {
       setWindowSize(getWindowSize(showMenu));
-      document.body.style.height = window.innerHeight + 'px';
-      document.body.style.width = window.innerWidth + 'px';
+      document.body.style.height = window.innerHeight - 30 + 'px';
+      document.body.style.width = window.innerWidth - 30 + 'px';
     };
     const removeListener = () =>
       window.removeEventListener('resize', resizeWindow);
