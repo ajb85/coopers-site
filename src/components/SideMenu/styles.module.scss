@@ -2,16 +2,16 @@
 
 .SideMenu {
   padding-top: 25px;
-  width: 20%;
-  min-width: 300px;
   height: 100%;
   background-color: rgba(255, 255, 255, 1);
+
+  overflow: hidden;
 
   position: absolute;
   top: 0;
   z-index: 1;
 
-  transition: right 0.5s;
+  transition: width 0.5s;
 
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 
@@ -40,7 +40,6 @@
   justify-content: space-evenly;
 
   margin: 0 auto;
-  width: 90%;
   height: calc(100% - 150px);
 
   @media #{$mobile} {

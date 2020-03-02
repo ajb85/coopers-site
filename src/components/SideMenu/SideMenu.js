@@ -46,18 +46,9 @@ function SideMenu(props) {
       ref={ref}
       className={styles.SideMenu}
       style={{
-        right: windowSize.isMobile
-          ? showMenu
-            ? 0
-            : -windowSize.rawWidth
-          : showMenu
-          ? 0
-          : windowSize.width * 0.2 <= 300
-          ? -300
-          : -windowSize.width * 0.2,
+        width: windowSize.sideMenuWidth,
         display: showMenu && 'initial',
         margin: showMenu && windowSize.isMobile && '0 auto',
-        width: windowSize.isMobile && windowSize.width,
         height: windowSize.isMobile && windowSize.height
       }}
     >
@@ -72,7 +63,12 @@ function SideMenu(props) {
       {/* Filter Options */}
       {/* <Filter showFilter={showFilter} setShowFilter={setShowFilter} /> */}
       {/* Render Image List */}
-      <div className={styles.imagesContainer}>{renderImages()}</div>
+      <div
+        className={styles.imagesContainer}
+        style={{ minWidth: windowSize.sideMenuWidth * 0.9 }}
+      >
+        {renderImages()}
+      </div>
     </div>
   );
 }
