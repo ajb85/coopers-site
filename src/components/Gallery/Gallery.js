@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import MainImage from '../MainImage/';
 import SideMenu from '../SideMenu/';
+import BottomMenu from '../BottomMenu/';
 
 import { ImagesContext } from 'Providers/Images.js';
 import { WindowContext } from 'Providers/Window.js';
@@ -41,7 +42,7 @@ function Gallery(props) {
         showMenu={showMenu}
         setShowMenu={setShowMenu}
       />
-      <SideMenu />
+      {windowSize.isMobile ? <BottomMenu /> : <SideMenu />}
     </div>
   );
 }

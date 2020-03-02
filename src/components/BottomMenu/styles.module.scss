@@ -1,20 +1,23 @@
 @import 'styles/variables.scss';
 
-.SideMenu {
-  padding-top: 30px;
-  height: 100%;
+.BottomMenu {
+  height: 80px;
+  width: 100%;
   background-color: rgba(255, 255, 255, 1);
 
   overflow: hidden;
 
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
+  left: 0;
   z-index: 1;
 
   transition: width 0.5s;
 
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+  display: flex;
 
   @media #{$mobile} {
     max-width: none;
@@ -26,32 +29,24 @@
 .logo {
   display: flex;
   justify-content: center;
-
-  margin-bottom: 25px;
+  align-items: center;
 
   img {
-    width: 80%;
+    width: 100px;
   }
 }
 
 .imagesContainer {
   display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: space-evenly;
+  align-items: center;
 
   margin: 0 auto;
-  height: calc(100% - 150px);
-
-  @media #{$mobile} {
-    width: 98%;
-  }
+  height: 100%;
 
   .imageWindow {
-    width: 100px;
+    min-width: 100px;
     height: 75px;
-    margin: 0 5px 25px;
-
+    margin: 0 5px;
     overflow: hidden;
     background-color: black;
 
@@ -59,8 +54,6 @@
     justify-content: center;
     align-items: center;
 
-    border-width: 1px;
-    border-style: solid;
     border-radius: 5px;
 
     cursor: pointer;

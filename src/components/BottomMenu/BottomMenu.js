@@ -1,7 +1,5 @@
 import React, { /*useState,*/ useContext } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-// import Filter from '../Filter/';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ImagesContext } from 'Providers/Images.js';
 import { WindowContext } from 'Providers/Window.js';
@@ -9,7 +7,7 @@ import { WindowContext } from 'Providers/Window.js';
 import logo from '../../assets/logo.png';
 import styles from './styles.module.scss';
 
-function SideMenu(props) {
+export default function SideMenu(props) {
   const { images, image, setImage } = useContext(ImagesContext);
   const { ref, showMenu, setShowMenu, windowSize } = useContext(WindowContext);
   // const [showFilter, setShowFilter] = useState(true);
@@ -44,27 +42,12 @@ function SideMenu(props) {
   return (
     <div
       ref={ref}
-      className={styles.SideMenu}
+      className={styles.BottomMenu}
       style={{
-        width: windowSize.sideMenuWidth,
         display: showMenu && 'initial',
-        margin: showMenu && windowSize.isMobile && '0 auto',
-        height: windowSize.isMobile && windowSize.height
+        margin: showMenu && windowSize.isMobile && '0 auto'
       }}
     >
-      <div className={styles.menuClose} onClick={() => setShowMenu(!showMenu)}>
-        <FontAwesomeIcon
-          icon={showMenu ? ['fal', 'compress-alt'] : ['fal', 'expand-alt']}
-        />
-      </div>
-      {/* Logo */}
-      <div className={styles.logo}>
-        <img src={logo} alt="Cooper Logo" />
-      </div>
-
-      {/* Filter Options */}
-      {/* <Filter showFilter={showFilter} setShowFilter={setShowFilter} /> */}
-      {/* Render Image List */}
       <div
         className={styles.imagesContainer}
         style={{ minWidth: windowSize.sideMenuWidth * 0.9 }}
@@ -74,5 +57,3 @@ function SideMenu(props) {
     </div>
   );
 }
-
-export default SideMenu;

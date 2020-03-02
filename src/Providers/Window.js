@@ -2,7 +2,6 @@ import React, { useState, useEffect, createContext, useRef } from 'react';
 
 export const WindowContext = createContext();
 
-let interval;
 export function Window(props) {
   const lastMenuSetting = localStorage.getItem('showMenu');
   const menuRef = useRef(null);
@@ -10,12 +9,6 @@ export function Window(props) {
     lastMenuSetting === 'true' || lastMenuSetting === undefined ? true : false
   );
   const [windowSize, setWindowSize] = useState(getWindowSize(showMenu));
-
-  useEffect(() => {
-    if (lastMenuSetting === 'false' && windowSize.isMobile && menuRef.current) {
-      menuRef.current.style.display = 'none';
-    }
-  }, []);
 
   useEffect(() => {
     const resizeWindow = () => {
@@ -39,19 +32,6 @@ export function Window(props) {
   }, [showMenu]);
 
   const updateShowMenu = value => {
-    if (interval) {
-      clearInterval(interval);
-    }
-    if (menuRef.current) {
-      if (value) {
-        menuRef.current.style.display = 'initial';
-      } else {
-        interval = setTimeout(() => {
-          menuRef.current.style.display = 'none';
-          interval = null;
-        }, 525);
-      }
-    }
     setShowMenu(value);
     localStorage.setItem('showMenu', value);
   };
@@ -87,16 +67,19 @@ function getWindowSize(showMenu) {
       : window.innerWidth * 0.2 <= 300
       ? 300
       : window.innerWidth * 0.2
-    : 0;
+    : 125;
 
   const width =
     isTablet || isMobile
       ? window.innerWidth
       : Math.round(window.innerWidth - offset);
 
+  const height = isMobile ? window.innerHeight - 80 : window.innerHeight;
+
   return {
     width,
-    height: window.innerHeight,
+    height,
+    rawHeight: window.innerHeight,
     rawWidth: window.innerWidth,
     sideMenuWidth,
     offset,

@@ -53,26 +53,26 @@ function MainImage({ showMenu, setShowMenu, windowSize }) {
 
   return (
     <Fade
-      style={{ width: windowSize.width }}
+      style={{ width: windowSize.width, height: windowSize.height }}
       direction={transition ? 'out' : transition === false ? 'in' : 'done'}
     >
-      <FontAwesomeIcon
-        className={styles.menuOpen}
-        onClick={() => setShowMenu(true)}
-        icon={['fal', 'bars']}
-      />
       <img
         style={imageSize.width && imageSize.height ? imageSize : null}
         src={renderedImage.src}
         alt={renderedImage.alt}
       />
-      <div className={styles.controls}>
-        <FontAwesomeIcon icon={['fal', 'arrow-alt-left']} onClick={prevImage} />
-        <FontAwesomeIcon
-          icon={['fal', 'arrow-alt-right']}
-          onClick={nextImage}
-        />
-      </div>
+      {!windowSize.isMobile && (
+        <div className={styles.controls}>
+          <FontAwesomeIcon
+            icon={['fal', 'arrow-alt-left']}
+            onClick={prevImage}
+          />
+          <FontAwesomeIcon
+            icon={['fal', 'arrow-alt-right']}
+            onClick={nextImage}
+          />
+        </div>
+      )}
 
       <div>
         <p>{renderedImage.description}</p>
