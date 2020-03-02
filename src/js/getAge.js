@@ -2,7 +2,7 @@ import moment from 'moment';
 
 export default date_str => {
   if (!date_str) {
-    return 0;
+    return '';
   }
 
   const birth = moment('2019-11-30', 'YYYY-MM-DD');

@@ -74,7 +74,7 @@ function getWindowSize(showMenu) {
       ? window.innerWidth
       : Math.round(window.innerWidth - offset);
 
-  const height = isMobile ? window.innerHeight - 80 : window.innerHeight;
+  const height = isMobile ? window.innerHeight - 95 : window.innerHeight;
 
   return {
     width,
