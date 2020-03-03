@@ -41,29 +41,31 @@ function SideMenu(props) {
     });
   };
 
+  const width = window.innerWidth * 0.2 <= 300 ? 300 : window.innerWidth * 0.2;
+
+  const right = showMenu ? 0 : -width;
+
   return (
     <div
       ref={ref}
       className={styles.SideMenu}
       style={{
-        width: windowSize.sideMenuWidth,
+        right,
+        width,
         display: showMenu && 'initial',
         margin: showMenu && windowSize.isMobile && '0 auto',
         height: windowSize.isMobile && windowSize.height
       }}
     >
       <div className={styles.menuClose} onClick={() => setShowMenu(!showMenu)}>
-        <FontAwesomeIcon
-          icon={showMenu ? ['fal', 'compress-alt'] : ['fal', 'expand-alt']}
-        />
-      </div>
-      {/* Logo */}
-      <div className={styles.logo}>
-        <img src={logo} alt="Cooper Logo" />
+        <FontAwesomeIcon icon={['fal', 'times']} />
       </div>
 
-      {/* Filter Options */}
-      {/* <Filter showFilter={showFilter} setShowFilter={setShowFilter} /> */}
+      {/* Logo */}
+      <div className={styles.logo}>
+        <img src={logo} alt='Cooper Logo' />
+      </div>
+
       {/* Render Image List */}
       <div
         className={styles.imagesContainer}

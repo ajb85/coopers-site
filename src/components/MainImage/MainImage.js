@@ -56,6 +56,11 @@ function MainImage({ showMenu, setShowMenu, windowSize }) {
       style={{ width: windowSize.width, height: windowSize.height }}
       direction={transition ? 'out' : transition === false ? 'in' : 'done'}
     >
+      <FontAwesomeIcon
+        className={styles.menuOpen}
+        onClick={() => setShowMenu(true)}
+        icon={['fal', 'bars']}
+      />
       <img
         style={imageSize.width && imageSize.height ? imageSize : null}
         src={renderedImage.src}

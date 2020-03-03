@@ -61,27 +61,13 @@ function getWindowSize(showMenu) {
       ? 300
       : window.innerWidth * 0.2;
 
-  const sideMenuWidth = showMenu
-    ? isMobile
-      ? window.innerWidth
-      : window.innerWidth * 0.2 <= 300
-      ? 300
-      : window.innerWidth * 0.2
-    : 125;
-
-  const width =
-    isTablet || isMobile
-      ? window.innerWidth
-      : Math.round(window.innerWidth - offset);
-
   const height = isMobile ? window.innerHeight - 95 : window.innerHeight;
 
   return {
-    width,
+    width: Math.round(window.innerWidth - offset),
     height,
     rawHeight: window.innerHeight,
     rawWidth: window.innerWidth,
-    sideMenuWidth,
     offset,
     isTablet,
     isMobile
