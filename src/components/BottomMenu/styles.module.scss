@@ -43,6 +43,11 @@
   margin: 0 auto;
   height: 100%;
 
+  overflow: auto;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+
   .imageWindow {
     min-width: 100px;
     height: 75px;

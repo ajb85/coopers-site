@@ -1,16 +1,13 @@
 import React, { /*useState,*/ useContext } from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ImagesContext } from 'Providers/Images.js';
 import { WindowContext } from 'Providers/Window.js';
 
-import logo from '../../assets/logo.png';
 import styles from './styles.module.scss';
 
-export default function SideMenu(props) {
+export default function(props) {
   const { images, image, setImage } = useContext(ImagesContext);
-  const { ref, showMenu, setShowMenu, windowSize } = useContext(WindowContext);
-  // const [showFilter, setShowFilter] = useState(true);
+  const { setShowMenu, windowSize } = useContext(WindowContext);
 
   const handleImageClick = id => {
     if (windowSize.isTablet || windowSize.isMobile) {
@@ -40,14 +37,7 @@ export default function SideMenu(props) {
   };
 
   return (
-    <div
-      ref={ref}
-      className={styles.BottomMenu}
-      style={{
-        display: showMenu && 'initial',
-        margin: showMenu && windowSize.isMobile && '0 auto'
-      }}
-    >
+    <div className={styles.BottomMenu}>
       <div
         className={styles.imagesContainer}
         style={{ minWidth: windowSize.sideMenuWidth * 0.9 }}
