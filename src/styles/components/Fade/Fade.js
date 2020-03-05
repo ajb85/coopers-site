@@ -37,8 +37,6 @@ const emerge = keyframes`
 
 export default styled.div`
   overflow: hidden;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
 
   display: flex;
   flex-direction: column;
@@ -84,12 +82,6 @@ export default styled.div`
       1;
 
     background: rgb(255, 255, 255, 0.5);
-    // background: linear-gradient(
-    //   0deg,
-    //   rgba(255, 255, 255, 1) 0%,
-    //   rgba(255, 255, 255, 0.5) 75%,
-    //   rgba(255, 255, 255, 0) 100%
-    // );
 
     &::before {
       position: absolute;
@@ -103,11 +95,6 @@ export default styled.div`
       transition: opacity 0.5s linear;
       opacity: 0;
 
-      // background: linear-gradient(
-      //   0deg,
-      //   rgba(255, 255, 255, 1) 0%,
-      //   rgba(255, 255, 255, 1) 100%
-      // );
       background: rgba(255, 255, 255, 1);
     }
 

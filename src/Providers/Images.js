@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 
-import realmBE from 'axios.js';
+import axiosBE from 'axios.js';
 import OrderedMap from 'js/OrderedMap.js';
 
 export const ImagesContext = createContext();
@@ -13,12 +13,10 @@ export function Images(props) {
   useEffect(() => {
     if (!fetched && !images.length) {
       setFetched(true);
-      realmBE
+      axiosBE
         .get('/images/all')
         .then(({ data }) => setImages(new OrderedMap(data)))
         .catch(err => console.log('ERROR FETCHING IMAGES: ', err));
-    } else if (fetched && images.length) {
-      setActive(images.lastID());
     }
     // eslint-disable-next-line
   }, [images, fetched]);
@@ -34,12 +32,26 @@ export function Images(props) {
     setActive(id);
   }
 
+  function setLastImage() {
+    setActive(images.lastID());
+  }
+
   const { Provider } = ImagesContext;
 
   const image = images.get(active);
 
   return (
-    <Provider value={{ images, image, nextImage, prevImage, setImage, active }}>
+    <Provider
+      value={{
+        images,
+        image,
+        nextImage,
+        prevImage,
+        setImage,
+        active,
+        setLastImage
+      }}
+    >
       {props.children}
     </Provider>
   );

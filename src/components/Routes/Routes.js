@@ -9,20 +9,23 @@ export default function Routes(props) {
   return (
     <Switch>
       {/* Public Routes */}
-      <Route exact path='/'>
-        <Redirect to='/gallery' />
+      <Route exact path="/">
+        <Redirect to="/gallery" />
       </Route>
-      <Route exact path='/gallery'>
+      <Route exact path="/gallery">
         <Gallery />
       </Route>
-      <Route exact path='/ajb85/login'>
+      <Route exact path="/gallery/:id">
+        <Gallery />
+      </Route>
+      <Route exact path="/ajb85/login">
         <Account>
           <Login />
         </Account>
       </Route>
 
       {/* Private Routes */}
-      <Route exact path='/ajb85/manage'>
+      <Route exact path="/ajb85/manage">
         <Account>
           <Manage />
         </Account>
@@ -30,7 +33,7 @@ export default function Routes(props) {
 
       {/* Default Route */}
       <Route>
-        <Redirect to='/' />
+        <Redirect to="/" />
       </Route>
     </Switch>
   );
