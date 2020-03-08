@@ -52,10 +52,7 @@ function MainImage({ showMenu, setShowMenu, windowSize }) {
   }
 
   return (
-    <Fade
-      style={{ width: windowSize.width, height: windowSize.height }}
-      direction={transition ? 'out' : transition === false ? 'in' : 'done'}
-    >
+    <>
       {!windowSize.isMobile && (
         <div className={styles.menuOpen}>
           <FontAwesomeIcon
@@ -65,30 +62,35 @@ function MainImage({ showMenu, setShowMenu, windowSize }) {
           />
         </div>
       )}
-      <img
-        style={imageSize.width && imageSize.height ? imageSize : null}
-        src={renderedImage.src}
-        alt={renderedImage.alt}
-      />
-      {!windowSize.isMobile && (
-        <div className={styles.controls}>
-          <FontAwesomeIcon
-            icon={['fal', 'arrow-alt-left']}
-            onClick={prevImage}
-          />
-          <FontAwesomeIcon
-            icon={['fal', 'arrow-alt-right']}
-            onClick={nextImage}
-          />
-        </div>
-      )}
+      <Fade
+        style={{ width: windowSize.width, height: windowSize.height }}
+        direction={transition ? 'out' : transition === false ? 'in' : 'done'}
+      >
+        <img
+          style={imageSize.width && imageSize.height ? imageSize : null}
+          src={renderedImage.src}
+          alt={renderedImage.alt}
+        />
+        {!windowSize.isMobile && (
+          <div className={styles.controls}>
+            <FontAwesomeIcon
+              icon={['fal', 'arrow-alt-left']}
+              onClick={prevImage}
+            />
+            <FontAwesomeIcon
+              icon={['fal', 'arrow-alt-right']}
+              onClick={nextImage}
+            />
+          </div>
+        )}
 
-      <div>
-        <p>{renderedImage.description}</p>
-        <p>{renderedImage.location}</p>
-        <p>{getAge(renderedImage.date)}</p>
-      </div>
-    </Fade>
+        <div>
+          <p>{renderedImage.description}</p>
+          <p>{renderedImage.location}</p>
+          <p>{getAge(renderedImage.date)}</p>
+        </div>
+      </Fade>
+    </>
   );
 }
 
