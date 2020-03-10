@@ -8,7 +8,6 @@ import Fade from 'styles/components/Fade/';
 import styles from './styles.module.scss';
 
 let interval;
-
 function MainImage({ showMenu, setShowMenu, windowSize }) {
   const { nextImage, image, prevImage } = useContext(ImagesContext);
   const [transition, setTransition] = useState(false);
