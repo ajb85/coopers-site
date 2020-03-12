@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ImagesContext } from 'Providers/Images.js';
-import getAge from 'js/getAge.js';
+import getAgeFromDate from 'js/getAge.js';
 
 import Fade from 'styles/components/Fade/';
 import styles from './styles.module.scss';
@@ -86,7 +86,7 @@ function MainImage({ showMenu, setShowMenu, windowSize }) {
         <div>
           <p>{renderedImage.description}</p>
           <p>{renderedImage.location}</p>
-          <p>{getAge(renderedImage.date)}</p>
+          <p>{getAgeFromDate(renderedImage.date)}</p>
         </div>
       </Fade>
     </>
